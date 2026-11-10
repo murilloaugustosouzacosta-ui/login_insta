@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram • InstaSim</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Coluna Esquerda: Branding -->
+        <div class="left-column">
+            <div class="branding">
+                <h1 class="instagram-logo">Instagram</h1>
+                <p class="slogan">Compartilhe o mundo com o instagram</p>
+            </div>
+        </div>
+
+        <!-- Coluna Direita: Card de Login -->
+        <div class="right-column">
+            <div class="login-card">
+                <form action="/" method="POST" class="login-form">
+                    <div class="input-group">
+                        <input type="text"
+                               name="username"
+                               placeholder="Usuário ou e-mail"
+                               class="form-input"
+                               required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password"
+                               name="password"
+                               placeholder="Senha"
+                               class="form-input"
+                               required>
+                    </div>
+
+                    {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn-primary">
+                        Entrar
+                    </button>
+
+                    <div class="forgot-password">
+                        <a href="#" class="link">Esqueceu a senha?</a>
+                    </div>
+                </form>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <a href="#" class="btn-secondary">
+                    Criar uma conta
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>Instagram • Meta </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
